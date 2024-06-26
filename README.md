@@ -5,22 +5,26 @@ Overview
  
 Features
 
-News Aggregation
 MIT News Integration: Automatically fetches the latest articles from the MIT News website.
 Hacker News Compatibility: Displays the articles in a format suitable for the Hacker News app.
 
 Intelligent Filtering
+
 Artificial Intelligence: Focus on breakthroughs, research, and advancements in AI.
 Cyber Security: Stay informed about the latest trends, threats, and innovations in cybersecurity.
+
 User Experience
+
 Interactive Interface: A user-friendly interface designed for seamless browsing and reading.
 Real-Time Updates: Get the most recent articles and discussions without any delay.
 
 How to Use
+
 Install the App :
 Download Here : https://drive.google.com/file/d/1cj2IMEc7nmJQuzAMwWHT4K_UmoVFmA-y/view?usp=drive_link
 
 Explore MIT News:
+
 Install the app and explore MIT News articles.
 
 ## Getting Started
