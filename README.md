@@ -4,9 +4,11 @@ Overview
  Hacker News App is a dynamic platform that seamlessly connects the world of academia with the tech community. By fetching real-time content from the esteemed MIT News website, this app ensures that cutting-edge research, breakthroughs, and thought-provoking articles are readily accessible to users. The app also offers a powerful filtering feature, allowing users to focus specifically on articles related to Artificial Intelligence (AI) and Cyber Security.
  
 Features
+
 News Aggregation
 MIT News Integration: Automatically fetches the latest articles from the MIT News website.
 Hacker News Compatibility: Displays the articles in a format suitable for the Hacker News app.
+
 Intelligent Filtering
 Artificial Intelligence: Focus on breakthroughs, research, and advancements in AI.
 Cyber Security: Stay informed about the latest trends, threats, and innovations in cybersecurity.
