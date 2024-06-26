@@ -67,7 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Color colorAIButton = Colors.white;
   Color colorCSButton = Colors.white;
 
-
   @override
   void initState() {
     super.initState();
@@ -175,8 +174,6 @@ class _MyHomePageState extends State<MyHomePage> {
           'link': 'https://news.mit.edu/' + ExtractedAILink[index]
         });
       });
-      print("1");
-      print(showAI[0]['image']);
     });
   }
 
@@ -191,9 +188,6 @@ class _MyHomePageState extends State<MyHomePage> {
           'link': 'https://news.mit.edu/' + ExtractedCSLink[index]
         });
       });
-      print("1");
-      print(showCS[0]['link']);
-      print(showCS[1]['link']);
     });
   }
 
