@@ -29,6 +29,8 @@ Explore MIT News:
 
 Install the app and explore MIT News articles.
 
+Screenshot: 
+
 
 ![IMG_20240627_123950](https://github.com/mrabdulla3/Hacker_News/assets/129673628/eb3d1ae9-75df-4fe2-af08-c9652c352164)
 
