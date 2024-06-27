@@ -30,12 +30,9 @@ Explore MIT News:
 Install the app and explore MIT News articles.
 
 
-![Screenshot_2024-06-27-12-29-17-939_com example hacker_news1](https://github.com/mrabdulla3/Hacker_News/assets/129673628/b96ef845-89f8-47c3-8f83-56daf3d1d0c9)
+![IMG_20240627_123950](https://github.com/mrabdulla3/Hacker_News/assets/129673628/eb3d1ae9-75df-4fe2-af08-c9652c352164)
 
-![Screenshot_2024-06-27-12-29-32-261_com example hacker_news1](https://github.com/mrabdulla3/Hacker_News/assets/129673628/90c5dfc5-8303-4745-a2f4-793d48bf796e)
-![Screenshot_2024-06-27-12-29-39-811_com example hacker_news1](https://github.com/mrabdulla3/Hacker_News/assets/129673628/5097fc7b-5073-4ecf-95c8-4cd6007ec457)
 
-![Screenshot_2024-06-27-12-29-44-985_com example hacker_news1](https://github.com/mrabdulla3/Hacker_News/assets/129673628/60e25d10-e3a9-470c-a533-62c7539ec2ef)
 
 
 ## Getting Started
