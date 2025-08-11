@@ -1,9 +1,10 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hacker_news/controllers/home_controller.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
-import 'package:hacker_news/views/detail_page.dart';
 import 'package:hacker_news/views/sidebar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -30,12 +31,14 @@ class HomeState extends State<Home> {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(13),
                       bottomLeft: Radius.circular(13))),
-              child:const Padding(
-                padding:  EdgeInsets.all(3.0),
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
                 child: Text(
                   'Hacker News',
-                  style:  TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.adamina(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white),
                 ),
               )),
           centerTitle: true,
@@ -50,25 +53,25 @@ class HomeState extends State<Home> {
           ],
         ),
         body: GetBuilder<HomeController>(
-          init: HomeController(),
           builder: (controller) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(
+              Padding(
+                padding: const EdgeInsets.only(
                   left: 17,
                   top: 3,
                 ),
                 child: Text(
                   'Breaking News',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  style: GoogleFonts.adamina(
+                      fontSize: 20, fontWeight: FontWeight.w600),
                 ),
               ),
               Padding(
                   padding: const EdgeInsets.only(
                       top: 0, bottom: 0, left: 8, right: 8),
                   child: SizedBox(
-                      height: screenHeight * 0.3,
+                      height: screenHeight * 0.24,
                       width: screenWidth,
                       child: controller.isLoad1
                           ? const SpinKitCircle(
@@ -83,37 +86,33 @@ class HomeState extends State<Home> {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Stack(children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(13),
-                                      child: Image.network(
-                                        controller.showAll[index]['image']!,
-                                        fit: BoxFit.cover,
-                                        width: screenWidth,
-                                        height: screenHeight * 0.3,
+                                    GestureDetector(
+                                      onTap: () {
+                                        String link = controller.showAllItem
+                                            ? controller.showAll[index]['link']!
+                                            : (controller.showAiItem
+                                                ? controller.showAI[index]
+                                                    ['link']!
+                                                : (controller.showCSItem
+                                                    ? controller.showCS[index]
+                                                        ['link']!
+                                                    : ''));
+
+                                        if (link.isNotEmpty) {
+                                          Get.toNamed(Routes.DETAIL_PAGE,
+                                              arguments: link);
+                                        }
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(13),
+                                        child: Image.network(
+                                          controller.showAll[index]['image']!,
+                                          fit: BoxFit.cover,
+                                          width: screenWidth,
+                                          height: screenHeight * 0.3,
+                                        ),
                                       ),
                                     ),
-                                    Positioned(
-                                        left: 10,
-                                        top: 10,
-                                        child: OutlinedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DetailPage(
-                                                            link: controller
-                                                                        .showAll[
-                                                                    index]
-                                                                ['link']!)));
-                                          },
-                                          child: const Text(
-                                            'Click',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        )),
                                     Positioned(
                                       left: 0,
                                       right: 0,
@@ -138,7 +137,7 @@ class HomeState extends State<Home> {
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: constraints.maxWidth *
-                                                    0.045, // Adjust the multiplier as needed
+                                                    0.045,
                                                 fontWeight: FontWeight.w400,
                                               ),
                                               maxLines: 3,
@@ -178,25 +177,23 @@ class HomeState extends State<Home> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 15),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
                 child: Text(
                   'Recommendation',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: GoogleFonts.adamina(
+                      fontSize: 20, fontWeight: FontWeight.w600),
                 ),
               ),
               Expanded(
-                  child: Container(
-                height: screenHeight * 0.4,
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0)),
-                    color: Colors.grey.shade200),
-                child: Padding(
+                child: Container(
+                  height: screenHeight * 0.4,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(40.0),
+                          topLeft: Radius.circular(40.0)),
+                      color: Colors.grey.shade200),
+                  child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: controller.isLoad1
                         ? const SpinKitCircle(
@@ -210,7 +207,7 @@ class HomeState extends State<Home> {
                                 : (controller.showAiItem
                                     ? controller.showAI.length
                                     : (controller.showCSItem
-                                        ? controller.showCS.length!
+                                        ? controller.showCS.length
                                         : 0)),
                             itemBuilder: (context, index) {
                               return GestureDetector(
@@ -333,12 +330,59 @@ class HomeState extends State<Home> {
                                 )),
                               );
                             },
-                          )),
-              ))
+                          ),
+                  ),
+                ),
+              ),
+              CurvedNavigationBar(
+                backgroundColor: Colors.transparent,
+                buttonBackgroundColor: const Color(0xFF1779A9),
+                animationDuration: const Duration(milliseconds: 300),
+                height: 70,
+                index: controller.selectedIndex,
+                items: [
+                  buildNavItem('assets/wishlist.png', 'Saved',
+                      controller.selectedIndex == 0),
+                  buildNavItem('assets/bot.png', 'Ask AI',
+                      controller.selectedIndex == 1),
+                  buildNavItem(
+                      'assets/home.png', 'Home', controller.selectedIndex == 2),
+                  buildNavItem('assets/user.png', 'Profile',
+                      controller.selectedIndex == 3),
+                  buildNavItem('assets/setting.png', 'Settings',
+                      controller.selectedIndex == 4),
+                ],
+                onTap: (index) => controller.changePage(index),
+              ),
             ],
           ),
         ));
   }
+}
+
+Widget buildNavItem(String icon, String label, bool isSelected) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          icon,
+          height: 24,
+          width: 24,
+          color: isSelected ? Colors.white : Colors.black,
+        ),
+        const SizedBox(height: 2),
+        Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
+            fontSize: 10,
+          ),
+        ),
+      ],
+    ),
+  );
 }
 
 Widget categoryButton(String title) {
@@ -346,18 +390,23 @@ Widget categoryButton(String title) {
     builder: (controller) {
       final bool isSelected = controller.selectedCategory == title;
       return Padding(
-        padding: const EdgeInsets.all(2),
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: ElevatedButton(
           onPressed: () => controller.selectCategory(title),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              isSelected ? Colors.deepPurpleAccent.shade100 : Colors.white,
+          style: ElevatedButton.styleFrom(
+            backgroundColor:
+                isSelected ? Colors.deepPurpleAccent : Colors.white,
+            side: BorderSide(color: Colors.deepPurpleAccent.shade100, width: 1),
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
             ),
           ),
           child: Text(
             title,
-            style: TextStyle(
+            style: GoogleFonts.poppins(
               color: isSelected ? Colors.white : Colors.black,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

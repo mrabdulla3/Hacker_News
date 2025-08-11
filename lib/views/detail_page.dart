@@ -29,44 +29,56 @@ class DetailPage extends StatelessWidget {
                   icon: const Icon(Icons.arrow_back_rounded),
                 ),
                 Text(
-                  controller.ExTitles.isNotEmpty ? controller.ExTitles[0] : '',
+                  controller.exTitles.isNotEmpty ? controller.exTitles[0] : '',
                   style: GoogleFonts.abrilFatface(fontSize: 26),
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  controller.ExAuthor.isNotEmpty ? controller.ExAuthor[0] : '',
+                  controller.exAuthor.isNotEmpty ? controller.exAuthor[0] : '',
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  controller.ExSource.isNotEmpty ? controller.ExSource[0] : '',
+                  controller.exSource.isNotEmpty ? controller.exSource[0] : '',
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
-                Text(
-                  controller.ExDate.isNotEmpty ? controller.ExDate[0] : '',
-                  style: const TextStyle(fontWeight: FontWeight.w500),
+                Row(
+                  children: [
+                    Text(
+                      controller.exDate.isNotEmpty ? controller.exDate[0] : '',
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: () {
+                          controller.saveNews();
+                        },
+                        icon: controller.isSaved
+                            ?const Icon(Icons.favorite)
+                            :const Icon(Icons.favorite_border))
+                  ],
                 ),
                 const Divider(),
                 Text(
-                  controller.ExSubTitles.isNotEmpty
-                      ? controller.ExSubTitles[0]
+                  controller.exSubTitles.isNotEmpty
+                      ? controller.exSubTitles[0]
                       : '',
                   style: GoogleFonts.abyssinicaSil(fontSize: 18),
                 ),
                 const SizedBox(height: 10),
-                if (controller.ExextractedImage.isNotEmpty &&
-                    controller.ExextractedImage[0].isNotEmpty)
+                if (controller.exExtractedImage.isNotEmpty &&
+                    controller.exExtractedImage[0].isNotEmpty)
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.network(
-                      'https://news.mit.edu${controller.ExextractedImage[0]}',
+                      'https://news.mit.edu${controller.exExtractedImage[0]}',
                       errorBuilder: (context, error, stackTrace) =>
                           const Text("Image not available"),
                     ),
                   ),
                 const SizedBox(height: 15),
                 Text(
-                  controller.Excontent.isNotEmpty
-                      ? controller.Excontent[0]
+                  controller.exContent.isNotEmpty
+                      ? controller.exContent[0]
                       : '',
                   style: GoogleFonts.abel(fontSize: 22),
                 ),

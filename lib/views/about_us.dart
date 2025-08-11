@@ -6,7 +6,7 @@ class AboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('About Us')),
+        appBar: AppBar(title: const Text('About Us')),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -19,38 +19,39 @@ class AboutUs extends StatelessWidget {
                       Text(
                         'Developed By:',
                         style: GoogleFonts.abrilFatface(
-                          textStyle: TextStyle(fontSize: 20, letterSpacing: .5),
+                          textStyle:
+                              const TextStyle(fontSize: 20, letterSpacing: .5),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       ListTile(
-                        leading: CircleAvatar(
+                        leading: const CircleAvatar(
                           backgroundImage: AssetImage('assets/naved.jpg'),
                           radius: 30,
                         ),
                         title: Text(
                           'Naved Hasan',
                           style: GoogleFonts.aBeeZee(
-                            textStyle:
-                                TextStyle(fontSize: 20, letterSpacing: .5),
+                            textStyle: const TextStyle(
+                                fontSize: 20, letterSpacing: .5),
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       ListTile(
-                        leading: CircleAvatar(
+                        leading: const CircleAvatar(
                           backgroundImage: AssetImage('assets/abdulla.jpg'),
                           radius: 30,
                         ),
                         title: Text(
                           'Abdulla Gaur',
                           style: GoogleFonts.aBeeZee(
-                            textStyle:
-                                TextStyle(fontSize: 20, letterSpacing: .5),
+                            textStyle: const TextStyle(
+                                fontSize: 20, letterSpacing: .5),
                           ),
                         ),
                       ),
@@ -67,64 +68,64 @@ class AboutUs extends StatelessWidget {
                       Text(
                         'Description:',
                         style: GoogleFonts.abrilFatface(
-                          textStyle: TextStyle(fontSize: 20, letterSpacing: .5),
+                          textStyle:
+                              const TextStyle(fontSize: 20, letterSpacing: .5),
                         ),
                       ),
                       Text(
                         'Reference',
                         style: GoogleFonts.abyssinicaSil(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               fontSize: 17, fontWeight: FontWeight.bold),
                         ),
                       ),
                       SelectableText(
                         'https://news.mit.edu',
                         style: GoogleFonts.abyssinicaSil(
-                          textStyle: TextStyle(fontSize: 15),
+                          textStyle: const TextStyle(fontSize: 15),
                         ),
                       ),
                       Text(
                         '\nTechnology Used                                                               ',
                         style: GoogleFonts.abyssinicaSil(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               fontSize: 17, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Text(
                         'Flutter - For User Interface\nDart - For Webscraping\n',
                         style: GoogleFonts.abyssinicaSil(
-                          textStyle: TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 17),
                         ),
                       ),
                       Text(
                         'Package Used',
                         style: GoogleFonts.abyssinicaSil(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold)),
                       ),
                       Text(
                         'http:\nhtml:\nflutter_easyloading: ^3.0.5\nflutter_spinkit:\nconnectivity_plus:\ndots_indicator:\ngoogle_fonts:',
                         style: GoogleFonts.abyssinicaSil(
-                          textStyle: TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 17),
                         ),
                       ),
                       Text(
                         '\nAbout The App',
                         style: GoogleFonts.abyssinicaSil(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold)),
                       ),
                       Text(
                         'Get the website data from the mit website with the help of http package and parse through dom parser package.\nAnd shows the data in the hacker news app',
                         style: GoogleFonts.abyssinicaSil(
-                          textStyle: TextStyle(fontSize: 17),
+                          textStyle: const TextStyle(fontSize: 17),
                         ),
                       ),
                     ],
                   ),
                 ),
               )
-              //Center(child: Text('This Feature Will be Available Coming Soon!',style: TextStyle(fontSize: 25),))
             ],
           ),
         ));

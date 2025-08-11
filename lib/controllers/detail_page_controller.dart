@@ -1,28 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
 
 class DetailPageController extends GetxController {
-  List<String> ExTitles = [];
-  List<String> ExSubTitles = [];
-  List<String> ExAuthor = [];
-  List<String> ExSource = [];
-  List<String> ExDate = [];
-  List<String> ExextractedImage = [];
-  List<String> Excontent = [];
+  List<String> exTitles = [];
+  List<String> exSubTitles = [];
+  List<String> exAuthor = [];
+  List<String> exSource = [];
+  List<String> exDate = [];
+  List<String> exExtractedImage = [];
+  List<String> exContent = [];
   bool isLoadCS = true;
-  final String link; 
+  final String link;
+  bool isSaved = false;
+  User user = FirebaseAuth.instance.currentUser!;
 
   DetailPageController(this.link);
 
   @override
   void onInit() {
     super.onInit();
-    print("Links in page: $link");
     isLoadCS = true;
     update();
     getDetail(link);
+    checkIfSaved();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   getDetail(String u) async {
@@ -34,23 +43,23 @@ class DetailPageController extends GetxController {
       if (response.statusCode == 200) {
         try {
           dom.Document document = parser.parse(response.body);
-          List<String> Titles = document
+          List<String> titles = document
               .querySelectorAll('#block-mit-page-title')
               .map((element) => element.text.trim())
               .toList();
-          List<String> SubTitles = document
+          List<String> subTitles = document
               .querySelectorAll('.news-article--dek')
               .map((element) => element.text.trim())
               .toList();
-          List<String> Author = document
+          List<String> author = document
               .querySelectorAll('.news-article--author')
               .map((element) => element.text.trim())
               .toList();
-          List<String> Source = document
+          List<String> source = document
               .querySelectorAll('.news-article--source')
               .map((element) => element.text.trim())
               .toList();
-          List<String> Date = document
+          List<String> date = document
               .querySelectorAll('.news-article--publication-date time')
               .map((element) => element.text.trim())
               .toList();
@@ -64,41 +73,40 @@ class DetailPageController extends GetxController {
               .map((element) => element.text.trim())
               .toList();
 
-          if (Titles.isEmpty) {
-            ExTitles = [" "];
+          if (titles.isEmpty) {
+            exTitles = [" "];
           } else {
-            ExTitles = Titles;
+            exTitles = titles;
           }
-          if (SubTitles.isEmpty) {
-            ExSubTitles = [" "];
+          if (subTitles.isEmpty) {
+            exSubTitles = [" "];
           } else {
-            ExSubTitles = SubTitles;
+            exSubTitles = subTitles;
           }
-          if (Author.isEmpty) {
-            print("Author");
-            ExAuthor = [" "];
+          if (author.isEmpty) {
+            exAuthor = [" "];
           } else {
-            ExAuthor = Author;
+            exAuthor = author;
           }
-          if (Source.isEmpty) {
-            ExSource = [" "];
+          if (source.isEmpty) {
+            exSource = [" "];
           } else {
-            ExSource = Source;
+            exSource = source;
           }
-          if (Date.isEmpty) {
-            ExDate = [" "];
+          if (date.isEmpty) {
+            exDate = [" "];
           } else {
-            ExDate = Date;
+            exDate = date;
           }
           if (extractedImage.isEmpty) {
-            ExextractedImage = [" "];
+            exExtractedImage = [" "];
           } else {
-            ExextractedImage = extractedImage;
+            exExtractedImage = extractedImage;
           }
           if (content.isEmpty) {
-            Excontent = [" "];
+            exContent = [" "];
           } else {
-            Excontent = content;
+            exContent = content;
           }
           isLoadCS = false;
           update();
@@ -106,6 +114,45 @@ class DetailPageController extends GetxController {
           print(e);
         }
       }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> saveNews() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('saved-news')
+          .doc(user.uid)
+          .collection('articles')
+          .add({
+        'title': exTitles[0],
+        'subtitle': exSubTitles[0],
+        'date': exDate[0],
+        'source':exSource[0],
+        'image': 'https://news.mit.edu${exExtractedImage[0]}',
+        'url': link,
+        'savedAt': FieldValue.serverTimestamp(),
+      });
+      isSaved = true;
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> checkIfSaved() async {
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('saved-news')
+          .doc(user.uid)
+          .collection('articles')
+          .where('url', isEqualTo: link)
+          .limit(1)
+          .get();
+
+      isSaved = snapshot.docs.isNotEmpty;
+      update();
     } catch (e) {
       print(e);
     }

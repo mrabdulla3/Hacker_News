@@ -26,7 +26,11 @@ class _onboarding extends State<Onboarding> with TickerProviderStateMixin {
         });
       });
   }
-
+  @override
+  void dispose() {
+    _controller.dispose(); 
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

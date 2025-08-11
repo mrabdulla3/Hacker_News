@@ -1,14 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
 import 'views/Onboarding.dart';
-
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  configLoading();
-  runApp(const MyApp());
-}
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void configLoading() {
   EasyLoading.instance
@@ -26,9 +23,22 @@ void configLoading() {
     ..indicatorType = EasyLoadingIndicatorType.circle;
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  configLoading();
+  final User? currentUser = FirebaseAuth.instance.currentUser;
 
+  runApp(MyApp(
+    isLogedIn: currentUser != null,
+  ));
+}
+
+class MyApp extends StatelessWidget {
+  final bool isLogedIn;
+  const MyApp({super.key, required this.isLogedIn});
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -38,9 +48,9 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme.light(),
         useMaterial3: true,
       ),
-      initialRoute: Routes.HOME, // 👈 Optional: if you want to use named routes
-      getPages: AppPages.routes, // 👈 Required for named route navigation
-      home: const Onboarding(), // 👈 Optional if using named routes instead
+      initialRoute: isLogedIn ? Routes.HOME : Routes.LOGIN,
+      getPages: AppPages.routes,
+      home: const Onboarding(),
       builder: EasyLoading.init(),
     );
   }

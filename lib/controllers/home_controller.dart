@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:hacker_news/core/routing/app_pages.dart';
 import 'package:hacker_news/views/home.dart';
+import 'package:hacker_news/views/saved_screen.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
@@ -15,6 +17,30 @@ class HomeController extends GetxController {
   double currentPage = 0;
 
   String selectedCategory = 'All';
+  int selectedIndex = 2;
+
+  void changePage(int index) {
+    selectedIndex = index;
+    update();
+
+    switch (index) {
+      case 0:
+        Get.to(() => SavedScreen());
+        break;
+      case 1:
+        // Ask AI logic here
+        break;
+      case 2:
+        Get.toNamed(Routes.HOME);
+        break;
+      case 3:
+        Get.toNamed(Routes.PROFILE);
+        break;
+      case 4:
+        Get.toNamed(Routes.SETTINGS);
+        break;
+    }
+  }
 
   @override
   void onInit() {
@@ -25,7 +51,6 @@ class HomeController extends GetxController {
   void selectCategory(String category) async {
     selectedCategory = category;
 
-    // Reset your showAllItem, showAiItem, etc. accordingly
     showAllItem = false;
     showCSItem = false;
     showDSItem = false;
@@ -59,10 +84,10 @@ class HomeController extends GetxController {
   bool isLoading = true;
   bool isLoad = true;
   bool isLoad1 = true;
-  List<String> ExtractedTitles = [];
-  List<String> ExtractedSubtitles = [];
-  List<String> ExtractedDate = [];
-  List<String> ExtractedImage = [];
+  List<String> extractedTitles = [];
+  List<String> extractedSubtitles = [];
+  List<String> extractedDate = [];
+  List<String> extractedImage = [];
 
   List<Map<String, String>> showAll = [];
   List<Map<String, String>> showAI = [];
@@ -128,26 +153,26 @@ class HomeController extends GetxController {
   }
 
   Future<void> setAIdata() async {
-    ExtractedAITitles.asMap().forEach((index, title) {
+    extractedTitles.asMap().forEach((index, title) {
       showAI.add({
         'title': title,
-        'subtitle': ExtractedAISubtitles[index],
-        'date': ExtractedAIDate[index],
-        'image': 'https://news.mit.edu/' + ExtractedAIImage[index],
-        'link': 'https://news.mit.edu/' + ExtractedAILink[index]
+        'subtitle': extractedSubtitles[index],
+        'date': extractedDate[index],
+        'image': 'https://news.mit.edu/${extractedImage[index]}',
+        'link': 'https://news.mit.edu/${extractedLink[index]}'
       });
     });
     update();
   }
 
   Future<void> setCSdata() async {
-    ExtractedCSTitles.asMap().forEach((index, title) {
+    extractedTitles.asMap().forEach((index, title) {
       showCS.add({
         'title': title,
-        'subtitle': ExtractedCSSubtitles[index],
-        'date': ExtractedCSDate[index],
-        'image': 'https://news.mit.edu/' + ExtractedCSImage[index],
-        'link': 'https://news.mit.edu/' + ExtractedCSLink[index]
+        'subtitle': extractedSubtitles[index],
+        'date': extractedDate[index],
+        'image': 'https://news.mit.edu/${extractedImage[index]}',
+        'link': 'https://news.mit.edu/${extractedLink[index]}'
       });
     });
     update();
@@ -155,11 +180,11 @@ class HomeController extends GetxController {
 
   // AI Data Fetching
 
-  List<String> ExtractedAITitles = [];
+  /*List<String> ExtractedAITitles = [];
   List<String> ExtractedAISubtitles = [];
   List<String> ExtractedAIDate = [];
-  List<String> ExtractedAIImage = [];
-  List<String> ExtractedAILink = [];
+  List<String> ExtractedAIImage = [];*/
+  List<String> extractedLink = [];
 
   Future<void> getWebsiteAIData() async {
     EasyLoading.show(status: '');
@@ -168,25 +193,24 @@ class HomeController extends GetxController {
         Uri.parse('https://news.mit.edu/topic/artificial-intelligence2');
 
     final response = await http.get(url);
-    print(response);
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
 
-      ExtractedAITitles = document
+      extractedTitles = document
           .querySelectorAll('.term-page--news-article--item--title')
           .map((element) => element.text.trim())
           .toList();
-      ExtractedAISubtitles = document
+      extractedSubtitles = document
           .querySelectorAll('.term-page--news-article--item--dek')
           .map((element) => element.text.trim())
           .toList();
-      ExtractedAIDate = document
+      extractedDate = document
           .querySelectorAll('.term-page--news-article--item--publication-date')
           .map((element) => element.text.trim())
           .toList();
       List<dom.Element> imageElements = document
           .querySelectorAll('.term-page--news-article--item--cover-image img');
-      ExtractedAIImage = imageElements
+      extractedImage = imageElements
           .map((element) => element.attributes['data-src'] ?? '')
           .toList();
 
@@ -196,11 +220,10 @@ class HomeController extends GetxController {
       linkElement.forEach((element) {
         if (element.attributes.containsKey('href')) {
           String link = element.attributes['href']!;
-          ExtractedAILink.add(link);
+          extractedLink.add(link);
         }
       });
 
-      print(ExtractedAIDate[0]);
       EasyLoading.dismiss();
     } else {
       throw Exception('Failed Data Loading!');
@@ -209,36 +232,35 @@ class HomeController extends GetxController {
 
   // Cyber Security Data Fetching
 
-  List<String> ExtractedCSTitles = [];
+  /*List<String> ExtractedCSTitles = [];
   List<String> ExtractedCSSubtitles = [];
   List<String> ExtractedCSDate = [];
   List<String> ExtractedCSImage = [];
-  List<String> ExtractedCSLink = [];
+  List<String> ExtractedCSLink = [];*/
 
   Future<bool> getWebsiteCSData() async {
     EasyLoading.show(status: '');
     final url = Uri.parse('https://news.mit.edu/topic/cyber-security');
 
     final response = await http.get(url);
-    print(response);
     if (response.statusCode == 200) {
       dom.Document document = parser.parse(response.body);
 
-      ExtractedCSTitles = document
+      extractedTitles = document
           .querySelectorAll('.term-page--news-article--item--title')
           .map((element) => element.text.trim())
           .toList();
-      ExtractedCSSubtitles = document
+      extractedSubtitles = document
           .querySelectorAll('.term-page--news-article--item--dek')
           .map((element) => element.text.trim())
           .toList();
-      ExtractedCSDate = document
+      extractedDate = document
           .querySelectorAll('.term-page--news-article--item--publication-date')
           .map((element) => element.text.trim())
           .toList();
       List<dom.Element> imageElements = document
           .querySelectorAll('.term-page--news-article--item--cover-image img');
-      ExtractedCSImage = imageElements
+      extractedImage = imageElements
           .map((element) => element.attributes['data-src'] ?? '')
           .toList();
 
@@ -248,11 +270,10 @@ class HomeController extends GetxController {
       linkElement.forEach((element) {
         if (element.attributes.containsKey('href')) {
           String link = element.attributes['href']!;
-          ExtractedCSLink.add(link);
+          extractedLink.add(link);
         }
       });
 
-      print(ExtractedCSImage[0]);
       EasyLoading.dismiss();
     } else {
       throw Exception('Failed Data Loading!');
