@@ -6,10 +6,12 @@ class ProfileController extends GetxController {
   String name = "";
   String email = "";
   bool isLoding = false;
-  void onInit(){
+  @override
+  void onInit() {
     super.onInit();
     getProfileData();
   }
+
   Future<void> getProfileData() async {
     isLoding = true;
     update();

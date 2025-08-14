@@ -5,7 +5,9 @@ import 'package:get/state_manager.dart';
 class SavedController extends GetxController {
   List<Map<String, dynamic>> savedArticles = [];
   bool isLoading = false;
-    @override
+  User user = FirebaseAuth.instance.currentUser!;
+
+  @override
   void onInit() {
     super.onInit();
     getSavedArticles();
@@ -15,7 +17,6 @@ class SavedController extends GetxController {
     try {
       isLoading = true;
       update();
-      User user = FirebaseAuth.instance.currentUser!;
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('saved-news')
           .doc(user.uid)
@@ -23,15 +24,29 @@ class SavedController extends GetxController {
           .orderBy('savedAt', descending: true)
           .get();
 
-      savedArticles = snapshot.docs
-          .map((doc) => doc.data() as Map<String, dynamic>)
-          .toList();
-          print(savedArticles);
+      savedArticles = snapshot.docs.map((doc) {
+        return {'id': doc.id, ...doc.data() as Map<String, dynamic>};
+      }).toList();
+      update();
     } catch (e) {
       print(e);
-    }finally {
+    } finally {
       isLoading = false;
       update();
+    }
+  }
+
+  Future<void> deleteArticle(String docId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('saved-news')
+          .doc(user.uid)
+          .collection('articles')
+          .doc(docId)
+          .delete();
+      getSavedArticles();
+    } catch (e) {
+      print(e);
     }
   }
 }

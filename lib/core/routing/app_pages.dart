@@ -3,10 +3,12 @@ import 'package:hacker_news/controllers/contactus_controller.dart';
 import 'package:hacker_news/controllers/detail_page_controller.dart';
 import 'package:hacker_news/controllers/home_controller.dart';
 import 'package:hacker_news/controllers/login_controller.dart';
+import 'package:hacker_news/controllers/onboarding_controller.dart';
 import 'package:hacker_news/controllers/profile_controller.dart';
 import 'package:hacker_news/controllers/saved_controller.dart';
 import 'package:hacker_news/controllers/settings_controller.dart';
 import 'package:hacker_news/controllers/signup_controller.dart';
+import 'package:hacker_news/views/Onboarding.dart';
 import 'package:hacker_news/views/contactus_screen.dart';
 import 'package:hacker_news/views/detail_page.dart';
 import 'package:hacker_news/views/home.dart';
@@ -83,9 +85,17 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SAVED,
-      page: () => SavedScreen(),
+      page: () =>const SavedScreen(),
       binding: BindingsBuilder(
         () => Get.lazyPut<SavedController>(() => SavedController()),
+      ),
+    ),
+
+    GetPage(
+      name: _Paths.ONBOARDING,
+      page: () =>const Onboarding(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<OnboardingController>(() => OnboardingController()),
       ),
     ),
   ];

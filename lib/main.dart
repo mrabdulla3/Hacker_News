@@ -48,9 +48,8 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme.light(),
         useMaterial3: true,
       ),
-      initialRoute: isLogedIn ? Routes.HOME : Routes.LOGIN,
+      initialRoute: isLogedIn ? Routes.ONBOARDING : Routes.LOGIN,
       getPages: AppPages.routes,
-      home: const Onboarding(),
       builder: EasyLoading.init(),
     );
   }

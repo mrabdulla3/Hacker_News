@@ -1,7 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:hacker_news/constants/app_colors.dart';
 import 'package:hacker_news/controllers/home_controller.dart';
 import 'package:hacker_news/controllers/profile_controller.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
@@ -15,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         title: const Text('My Profile'),
-        backgroundColor: const Color.fromARGB(213, 249, 92, 53),
+        backgroundColor: AppColors.primaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -23,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
             // Profile header
             Container(
               padding: const EdgeInsets.all(20),
-              color: const Color.fromARGB(213, 249, 92, 53),
+              color: AppColors.primaryColor,
               child: Row(
                 children: [
                   const CircleAvatar(
@@ -34,7 +36,10 @@ class ProfileScreen extends StatelessWidget {
                   GetBuilder<ProfileController>(
                     builder: (controller) => controller.isLoding
                         ? const Center(
-                            child: CircularProgressIndicator(),
+                            child: SpinKitCircle(
+                              size: 50,
+                              color: AppColors.secondryColor,
+                            ),
                           )
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +75,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             _buildProfileOption(
               icon: Icons.bookmark,
-              title: 'Bookmarked Articles',
+              title: 'Saved Articles',
               onTap: () {
                 // Navigate to bookmarked news
                 Get.toNamed(Routes.SAVED);
@@ -100,7 +105,7 @@ class ProfileScreen extends StatelessWidget {
       bottomNavigationBar: GetBuilder<HomeController>(
         builder: (controller) => CurvedNavigationBar(
           backgroundColor: Colors.transparent,
-          buttonBackgroundColor: const Color(0xFF1779A9),
+          buttonBackgroundColor: AppColors.secondryColor,
           animationDuration: const Duration(milliseconds: 300),
           height: 70,
           index: controller.selectedIndex,
@@ -155,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
-        leading: Icon(icon, color: Colors.blue.shade700),
+        leading: Icon(icon, color: AppColors.secondryColor),
         title: Text(title),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: onTap,

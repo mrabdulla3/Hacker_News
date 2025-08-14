@@ -53,8 +53,8 @@ class DetailPage extends StatelessWidget {
                           controller.saveNews();
                         },
                         icon: controller.isSaved
-                            ?const Icon(Icons.favorite)
-                            :const Icon(Icons.favorite_border))
+                            ?const Icon(Icons.bookmark,color: Color.fromARGB(255, 255, 89, 0),)
+                            :const Icon(Icons.bookmark_border))
                   ],
                 ),
                 const Divider(),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hacker_news/constants/app_colors.dart';
 import 'package:hacker_news/controllers/sidebar_controller.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
 import 'package:hacker_news/views/about_us.dart';
@@ -20,7 +22,10 @@ class Sidebar extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.8,
               child: controller.isLoding
-                  ?const Center(child:  CircularProgressIndicator())
+                  ?const SpinKitCircle(
+                              size: 50,
+                              color: AppColors.secondryColor,
+                            )
                   : DrawerHeader(
                       child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +55,7 @@ class Sidebar extends StatelessWidget {
                 leading: const Icon(Icons.feedback_outlined),
                 title: const Text('Feedback'),
                 onTap: () {
-                  Get.to(() => FeedbackScreen());
+                  Get.to(() => const FeedbackScreen());
                 }),
             ListTile(
               leading: const Icon(Icons.account_box_outlined),
@@ -68,9 +73,11 @@ class Sidebar extends StatelessWidget {
                   Get.toNamed(Routes.CONTACT);
                 }),
             ListTile(
-              leading: const Icon(Icons.favorite_border_outlined),
-              title: const Text('Favorite'),
-              onTap: () {},
+              leading: const Icon(Icons.bookmark_border),
+              title: const Text('Saved Articles'),
+              onTap: () {
+                Get.toNamed(Routes.SAVED);
+              },
             ),
             ListTile(
               leading: const Icon(Icons.settings),

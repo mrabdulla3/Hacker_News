@@ -3,7 +3,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
 import 'package:hacker_news/views/home.dart';
-import 'package:hacker_news/views/saved_screen.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
@@ -25,7 +24,7 @@ class HomeController extends GetxController {
 
     switch (index) {
       case 0:
-        Get.to(() => SavedScreen());
+        Get.toNamed(Routes.SAVED);
         break;
       case 1:
         // Ask AI logic here
@@ -47,6 +46,7 @@ class HomeController extends GetxController {
     super.onInit();
     getWebsiteData();
   }
+
 
   void selectCategory(String category) async {
     selectedCategory = category;

@@ -26,9 +26,7 @@ class SidebarController extends GetxController {
       if (doc.exists) {
         name = doc['username'] ?? "No Name";
       }
-      if (user != null) {
-        email = user.email ?? "No Email";
-      }
+      email = user.email ?? "No Email";
     } catch (e) {
       print(e);
     } finally {

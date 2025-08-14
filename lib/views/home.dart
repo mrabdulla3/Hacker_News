@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hacker_news/constants/app_colors.dart';
 import 'package:hacker_news/controllers/home_controller.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
 import 'package:hacker_news/views/sidebar.dart';
@@ -76,7 +77,7 @@ class HomeState extends State<Home> {
                       child: controller.isLoad1
                           ? const SpinKitCircle(
                               size: 50,
-                              color: Colors.blue,
+                              color: AppColors.secondryColor,
                             )
                           : PageView.builder(
                               controller: controller.pageController,
@@ -156,7 +157,7 @@ class HomeState extends State<Home> {
                   dotsCount: 4,
                   position: controller.currentPage,
                   decorator: DotsDecorator(
-                      activeColor: Colors.deepPurpleAccent.shade100,
+                      activeColor: AppColors.secondryColor,
                       size: const Size.square(10.0),
                       activeSize: const Size(18.0, 9.0),
                       activeShape: RoundedRectangleBorder(
@@ -198,7 +199,7 @@ class HomeState extends State<Home> {
                     child: controller.isLoad1
                         ? const SpinKitCircle(
                             size: 50,
-                            color: Colors.blue,
+                            color: AppColors.secondryColor,
                           )
                         : ListView.builder(
                             itemExtent: 150,
@@ -336,7 +337,7 @@ class HomeState extends State<Home> {
               ),
               CurvedNavigationBar(
                 backgroundColor: Colors.transparent,
-                buttonBackgroundColor: const Color(0xFF1779A9),
+                buttonBackgroundColor: AppColors.secondryColor,
                 animationDuration: const Duration(milliseconds: 300),
                 height: 70,
                 index: controller.selectedIndex,
@@ -395,8 +396,8 @@ Widget categoryButton(String title) {
           onPressed: () => controller.selectCategory(title),
           style: ElevatedButton.styleFrom(
             backgroundColor:
-                isSelected ? Colors.deepPurpleAccent : Colors.white,
-            side: BorderSide(color: Colors.deepPurpleAccent.shade100, width: 1),
+                isSelected ? AppColors.secondryColor : Colors.white,
+            side:const BorderSide(color: AppColors.primaryColor, width: 1),
             elevation: 2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),

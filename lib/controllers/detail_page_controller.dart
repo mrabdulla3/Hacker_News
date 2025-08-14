@@ -29,10 +29,6 @@ class DetailPageController extends GetxController {
     checkIfSaved();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   getDetail(String u) async {
     try {

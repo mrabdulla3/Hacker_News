@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:hacker_news/constants/app_colors.dart';
 import 'package:hacker_news/controllers/home_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -11,27 +12,23 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          const Text('General', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('General',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           SwitchListTile(
+            activeColor: AppColors.secondryColor,
             value: true,
             onChanged: (val) {},
             title: const Text('Breaking News Notifications'),
             secondary: const Icon(Icons.notifications),
           ),
-          ListTile(
-            leading: const Icon(Icons.category),
-            title: const Text('News Categories'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              // Navigate to category screen
-            },
-          ),
+         
           ListTile(
             leading: const Icon(Icons.language),
             title: const Text('Language'),
@@ -40,17 +37,13 @@ class SettingsScreen extends StatelessWidget {
               // Navigate to language screen
             },
           ),
-          SwitchListTile(
-            value: true,
-            onChanged: (val) {},
-            title: const Text('Local News Based on Location'),
-            secondary: const Icon(Icons.location_on),
-          ),
-
+         
           const SizedBox(height: 20),
-          const Text('Display', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('Display',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           SwitchListTile(
+            activeColor: AppColors.secondryColor,
             value: false,
             onChanged: (val) {},
             title: const Text('Dark Mode'),
@@ -64,15 +57,9 @@ class SettingsScreen extends StatelessWidget {
               // Show font size options
             },
           ),
-          SwitchListTile(
-            value: true,
-            onChanged: (val) {},
-            title: const Text('Load Images'),
-            secondary: const Icon(Icons.image),
-          ),
-
           const SizedBox(height: 20),
-          const Text('Account', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('Account',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           ListTile(
             leading: const Icon(Icons.person),
@@ -86,9 +73,9 @@ class SettingsScreen extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {},
           ),
-
           const SizedBox(height: 20),
-          const Text('Others', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text('Others',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           ListTile(
             leading: const Icon(Icons.privacy_tip),
@@ -112,7 +99,7 @@ class SettingsScreen extends StatelessWidget {
       bottomNavigationBar: GetBuilder<HomeController>(
         builder: (controller) => CurvedNavigationBar(
           backgroundColor: Colors.transparent,
-          buttonBackgroundColor: const Color(0xFF1779A9),
+          buttonBackgroundColor: AppColors.secondryColor,
           animationDuration: const Duration(milliseconds: 300),
           height: 70,
           index: controller.selectedIndex,
@@ -134,27 +121,28 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
+
 Widget buildNavItem(String icon, String label, bool isSelected) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            icon,
-            height: 24,
-            width: 24,
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          icon,
+          height: 24,
+          width: 24,
+          color: isSelected ? Colors.white : Colors.black,
+        ),
+        const SizedBox(height: 2),
+        Text(
+          label,
+          style: TextStyle(
             color: isSelected ? Colors.white : Colors.black,
+            fontSize: 10,
           ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
-              fontSize: 10,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
