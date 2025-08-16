@@ -14,8 +14,8 @@ class HomeController extends GetxController {
   bool showDSItem = false;
   bool showCSItem = false;
   double currentPage = 0;
-  bool isSearching=false;
-  TextEditingController searchController=TextEditingController();
+  bool isSearching = false;
+  TextEditingController searchController = TextEditingController();
 
   String selectedCategory = 'All';
   int selectedIndex = 2;
@@ -33,7 +33,7 @@ class HomeController extends GetxController {
   List<Map<String, String>> showCS = [];
 
   List<Map<String, String>> searchedNews = [];
-     bool get isSearchingActive => isSearching && searchController.text.isNotEmpty;
+  bool get isSearchingActive => isSearching && searchController.text.isNotEmpty;
 
   @override
   void onInit() {
@@ -295,15 +295,12 @@ class HomeController extends GetxController {
     if (query.isEmpty) {
       searchedNews = [];
     } else {
-     
-
       searchedNews = showAll
           .where((item) =>
               item['title']!.toLowerCase().contains(query.toLowerCase()) ||
               item['subtitle']!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
-    print(searchedNews);
     update();
   }
 
@@ -314,4 +311,3 @@ class HomeController extends GetxController {
     update();
   }
 }
-

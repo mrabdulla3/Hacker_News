@@ -48,7 +48,7 @@ ${messageController.text}
       nameController.clear();
       emailController.clear();
       messageController.clear();
-    } on MailerException catch (e) {
+    } on MailerException {
       Get.snackbar('Failed', 'Message not sent');
     } finally {
       isSent = false;

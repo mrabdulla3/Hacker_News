@@ -50,8 +50,10 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: 10),
             SwitchListTile(
               activeColor: AppColors.secondryColor,
-              value: false,
-              onChanged: (val) {},
+              value: controller.isDark,
+              onChanged: (val) {
+                controller.toggleTheme();
+              },
               title: const Text('Dark Mode'),
               secondary: const Icon(Icons.dark_mode),
             ),
