@@ -1,8 +1,9 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get.dart';
+import 'package:hacker_news/common_widgets/custom_bottom_navbar.dart';
 import 'package:hacker_news/constants/app_colors.dart';
-import 'package:hacker_news/controllers/home_controller.dart';
+import 'package:hacker_news/controllers/settings_controller.dart';
+import 'package:hacker_news/core/routing/app_pages.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -10,139 +11,107 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.appTheme,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
         title: const Text('Settings'),
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.appBarTheme,
         centerTitle: true,
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          const Text('General',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          SwitchListTile(
-            activeColor: AppColors.secondryColor,
-            value: true,
-            onChanged: (val) {},
-            title: const Text('Breaking News Notifications'),
-            secondary: const Icon(Icons.notifications),
-          ),
-         
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: const Text('Language'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              // Navigate to language screen
-            },
-          ),
-         
-          const SizedBox(height: 20),
-          const Text('Display',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          SwitchListTile(
-            activeColor: AppColors.secondryColor,
-            value: false,
-            onChanged: (val) {},
-            title: const Text('Dark Mode'),
-            secondary: const Icon(Icons.dark_mode),
-          ),
-          ListTile(
-            leading: const Icon(Icons.format_size),
-            title: const Text('Font Size'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              // Show font size options
-            },
-          ),
-          const SizedBox(height: 20),
-          const Text('Account',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Manage Profile'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.bookmark),
-            title: const Text('Saved Articles'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {},
-          ),
-          const SizedBox(height: 20),
-          const Text('Others',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          ListTile(
-            leading: const Icon(Icons.privacy_tip),
-            title: const Text('Terms and Privacy Policy'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.help),
-            title: const Text('Help & Feedback'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout, color: Colors.red),
-            title: const Text('Log Out', style: TextStyle(color: Colors.red)),
-            onTap: () {
-              // Handle logout
-            },
-          ),
-        ],
-      ),
-      bottomNavigationBar: GetBuilder<HomeController>(
-        builder: (controller) => CurvedNavigationBar(
-          backgroundColor: Colors.transparent,
-          buttonBackgroundColor: AppColors.secondryColor,
-          animationDuration: const Duration(milliseconds: 300),
-          height: 70,
-          index: controller.selectedIndex,
-          items: [
-            buildNavItem(
-                'assets/wishlist.png', 'Saved', controller.selectedIndex == 0),
-            buildNavItem(
-                'assets/bot.png', 'Ask AI', controller.selectedIndex == 1),
-            buildNavItem(
-                'assets/home.png', 'Home', controller.selectedIndex == 2),
-            buildNavItem(
-                'assets/user.png', 'Profile', controller.selectedIndex == 3),
-            buildNavItem('assets/setting.png', 'Settings',
-                controller.selectedIndex == 4),
+      body: GetBuilder<SettingsController>(
+        builder: (controller) => ListView(
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            const Text('General',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            SwitchListTile(
+              activeColor: AppColors.secondryColor,
+              value: true,
+              onChanged: (val) {},
+              title: const Text('Breaking News Notifications'),
+              secondary: const Icon(Icons.notifications),
+            ),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: const Text('Language'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Navigate to language screen
+              },
+            ),
+            const SizedBox(height: 20),
+            const Text('Display',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            SwitchListTile(
+              activeColor: AppColors.secondryColor,
+              value: false,
+              onChanged: (val) {},
+              title: const Text('Dark Mode'),
+              secondary: const Icon(Icons.dark_mode),
+            ),
+            ListTile(
+              leading: const Icon(Icons.format_size),
+              title: const Text('Font Size'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Show font size options
+              },
+            ),
+            const SizedBox(height: 20),
+            const Text('Account',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Manage Profile'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.bookmark),
+              title: const Text('Saved Articles'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Get.toNamed(Routes.SAVED);
+              },
+            ),
+            const SizedBox(height: 20),
+            const Text('Others',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            ListTile(
+              leading: const Icon(Icons.privacy_tip),
+              title: const Text('Terms and Privacy Policy'),
+              onTap: () {
+                Get.toNamed(Routes.TERMS_AND_CONDITIONS);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.help),
+              title: const Text('Help & Feedback'),
+              onTap: () {
+                Get.toNamed(Routes.FEEDBACK);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.red),
+              title: const Text('Log Out', style: TextStyle(color: Colors.red)),
+              onTap: () {
+                // Handle logout
+                controller.logOut();
+              },
+            ),
           ],
-          onTap: (index) => controller.changePage(index),
         ),
       ),
+      bottomNavigationBar:const CustomBottomNavbar(),
     );
   }
 }
 
-Widget buildNavItem(String icon, String label, bool isSelected) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          icon,
-          height: 24,
-          width: 24,
-          color: isSelected ? Colors.white : Colors.black,
-        ),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-            fontSize: 10,
-          ),
-        ),
-      ],
-    ),
-  );
-}

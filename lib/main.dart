@@ -1,34 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
-import 'views/Onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void configLoading() {
-  EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 2000)
-    ..loadingStyle = EasyLoadingStyle.custom
-    ..indicatorSize = 45.0
-    ..radius = 10.0
-    ..progressColor = Colors.blue
-    ..indicatorColor = Colors.blue
-    ..textColor = Colors.white
-    ..backgroundColor = Colors.white
-    ..maskColor = Colors.blue.withOpacity(0.5)
-    ..userInteractions = false
-    ..dismissOnTap = false
-    ..indicatorType = EasyLoadingIndicatorType.circle;
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: ".env");
+  
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  configLoading();
+
   final User? currentUser = FirebaseAuth.instance.currentUser;
 
   runApp(MyApp(
@@ -50,7 +36,6 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: isLogedIn ? Routes.ONBOARDING : Routes.LOGIN,
       getPages: AppPages.routes,
-      builder: EasyLoading.init(),
     );
   }
 }

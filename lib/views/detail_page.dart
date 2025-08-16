@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hacker_news/constants/app_colors.dart';
 import 'package:hacker_news/controllers/detail_page_controller.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,8 +15,8 @@ class DetailPage extends StatelessWidget {
       body: GetBuilder<DetailPageController>(
         builder: (controller) {
           if (controller.isLoadCS) {
-            return const Center(
-              child: SpinKitCircle(size: 50, color: Colors.blue),
+            return  const Center(
+              child: SpinKitCircle(size: 50, color: AppColors.secondryColor),
             );
           }
 
@@ -26,7 +27,7 @@ class DetailPage extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () => Get.back(),
-                  icon: const Icon(Icons.arrow_back_rounded),
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
                 ),
                 Text(
                   controller.exTitles.isNotEmpty ? controller.exTitles[0] : '',

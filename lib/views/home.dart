@@ -1,8 +1,8 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hacker_news/common_widgets/custom_bottom_navbar.dart';
 import 'package:hacker_news/constants/app_colors.dart';
 import 'package:hacker_news/controllers/home_controller.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
@@ -23,9 +23,10 @@ class HomeState extends State<Home> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+        backgroundColor: AppColors.appTheme,
         drawer: const Sidebar(),
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: AppColors.appBarTheme,
           title: Container(
               decoration: const BoxDecoration(
                   color: Colors.black,
@@ -178,14 +179,7 @@ class HomeState extends State<Home> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  'Recommendation',
-                  style: GoogleFonts.adamina(
-                      fontSize: 20, fontWeight: FontWeight.w600),
-                ),
-              ),
+             
               Expanded(
                 child: Container(
                   height: screenHeight * 0.4,
@@ -196,7 +190,7 @@ class HomeState extends State<Home> {
                       color: Colors.grey.shade200),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: controller.isLoad1
+                    child: controller.isLoad
                         ? const SpinKitCircle(
                             size: 50,
                             color: AppColors.secondryColor,
@@ -335,55 +329,12 @@ class HomeState extends State<Home> {
                   ),
                 ),
               ),
-              CurvedNavigationBar(
-                backgroundColor: Colors.transparent,
-                buttonBackgroundColor: AppColors.secondryColor,
-                animationDuration: const Duration(milliseconds: 300),
-                height: 70,
-                index: controller.selectedIndex,
-                items: [
-                  buildNavItem('assets/wishlist.png', 'Saved',
-                      controller.selectedIndex == 0),
-                  buildNavItem('assets/bot.png', 'Ask AI',
-                      controller.selectedIndex == 1),
-                  buildNavItem(
-                      'assets/home.png', 'Home', controller.selectedIndex == 2),
-                  buildNavItem('assets/user.png', 'Profile',
-                      controller.selectedIndex == 3),
-                  buildNavItem('assets/setting.png', 'Settings',
-                      controller.selectedIndex == 4),
-                ],
-                onTap: (index) => controller.changePage(index),
-              ),
+             
             ],
           ),
-        ));
+        ),bottomNavigationBar:const CustomBottomNavbar(),
+        );
   }
-}
-
-Widget buildNavItem(String icon, String label, bool isSelected) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          icon,
-          height: 24,
-          width: 24,
-          color: isSelected ? Colors.white : Colors.black,
-        ),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-            fontSize: 10,
-          ),
-        ),
-      ],
-    ),
-  );
 }
 
 Widget categoryButton(String title) {
@@ -397,7 +348,7 @@ Widget categoryButton(String title) {
           style: ElevatedButton.styleFrom(
             backgroundColor:
                 isSelected ? AppColors.secondryColor : Colors.white,
-            side:const BorderSide(color: AppColors.primaryColor, width: 1),
+            side: const BorderSide(color: AppColors.primaryColor, width: 1),
             elevation: 2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),

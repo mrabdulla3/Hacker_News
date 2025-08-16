@@ -31,7 +31,7 @@ class Sidebar extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const CircleAvatar(
-                          backgroundImage: AssetImage('assets/hackerNews.jpg'),
+                          backgroundImage: AssetImage('assets/hackerNews.png'),
                           radius: 50,
                         ),
                         Text(

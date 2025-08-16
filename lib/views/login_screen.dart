@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
               // Logo
               Center(
                 child: Image.asset(
-                  'assets/hackerNews.jpg',
+                  'assets/hackerNews.png',
                   height: screenHeight * 0.10,
                   width: screenWidth * 0.3,
                 ),

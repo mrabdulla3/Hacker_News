@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:hacker_news/controllers/contactus_controller.dart';
 import 'package:hacker_news/controllers/detail_page_controller.dart';
+import 'package:hacker_news/controllers/feedback_controller.dart';
 import 'package:hacker_news/controllers/home_controller.dart';
 import 'package:hacker_news/controllers/login_controller.dart';
 import 'package:hacker_news/controllers/onboarding_controller.dart';
@@ -11,12 +12,14 @@ import 'package:hacker_news/controllers/signup_controller.dart';
 import 'package:hacker_news/views/Onboarding.dart';
 import 'package:hacker_news/views/contactus_screen.dart';
 import 'package:hacker_news/views/detail_page.dart';
+import 'package:hacker_news/views/feedback_screen.dart';
 import 'package:hacker_news/views/home.dart';
 import 'package:hacker_news/views/login_screen.dart';
 import 'package:hacker_news/views/profile_screen.dart';
 import 'package:hacker_news/views/saved_screen.dart';
 import 'package:hacker_news/views/settings_screen.dart';
 import 'package:hacker_news/views/signup_screen.dart';
+import 'package:hacker_news/views/terms_and_cond.dart';
 
 part 'app_routes.dart';
 
@@ -85,7 +88,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SAVED,
-      page: () =>const SavedScreen(),
+      page: () => const SavedScreen(),
       binding: BindingsBuilder(
         () => Get.lazyPut<SavedController>(() => SavedController()),
       ),
@@ -93,10 +96,21 @@ class AppPages {
 
     GetPage(
       name: _Paths.ONBOARDING,
-      page: () =>const Onboarding(),
+      page: () => const Onboarding(),
       binding: BindingsBuilder(
         () => Get.lazyPut<OnboardingController>(() => OnboardingController()),
       ),
+    ),
+    GetPage(
+      name: _Paths.FEEDBACK,
+      page: () => const FeedbackScreen(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<FeedbackController>(() => FeedbackController()),
+      ),
+    ),
+    GetPage(
+      name: _Paths.TERMS_AND_CONDITIONS,
+      page: () => const TermsAndConditionsScreen(),
     ),
   ];
 }

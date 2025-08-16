@@ -1,10 +1,9 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:hacker_news/common_widgets/custom_bottom_navbar.dart';
 import 'package:hacker_news/constants/app_colors.dart';
-import 'package:hacker_news/controllers/home_controller.dart';
 import 'package:hacker_news/controllers/profile_controller.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
 
@@ -16,8 +15,14 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
         title: const Text('My Profile'),
-        backgroundColor: AppColors.primaryColor,
+        centerTitle: true,
+        backgroundColor: AppColors.appBarTheme,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -25,12 +30,12 @@ class ProfileScreen extends StatelessWidget {
             // Profile header
             Container(
               padding: const EdgeInsets.all(20),
-              color: AppColors.primaryColor,
+              color: AppColors.appBarTheme,
               child: Row(
                 children: [
                   const CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/hackerNews.jpg'),
+                    backgroundImage: AssetImage('assets/hackerNews.png'),
                   ),
                   const SizedBox(width: 20),
                   GetBuilder<ProfileController>(
@@ -46,16 +51,13 @@ class ProfileScreen extends StatelessWidget {
                             children: [
                               Text(
                                 controller.name,
-                                style:const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-                             const SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Text(
                                 controller.email,
-                                style:const TextStyle(
-                                    color: Colors.white70, fontSize: 14),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             ],
                           ),
@@ -79,7 +81,6 @@ class ProfileScreen extends StatelessWidget {
               onTap: () {
                 // Navigate to bookmarked news
                 Get.toNamed(Routes.SAVED);
-                
               },
             ),
             _buildProfileOption(
@@ -102,28 +103,7 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: GetBuilder<HomeController>(
-        builder: (controller) => CurvedNavigationBar(
-          backgroundColor: Colors.transparent,
-          buttonBackgroundColor: AppColors.secondryColor,
-          animationDuration: const Duration(milliseconds: 300),
-          height: 70,
-          index: controller.selectedIndex,
-          items: [
-            buildNavItem(
-                'assets/wishlist.png', 'Saved', controller.selectedIndex == 0),
-            buildNavItem(
-                'assets/bot.png', 'Ask AI', controller.selectedIndex == 1),
-            buildNavItem(
-                'assets/home.png', 'Home', controller.selectedIndex == 2),
-            buildNavItem(
-                'assets/user.png', 'Profile', controller.selectedIndex == 3),
-            buildNavItem('assets/setting.png', 'Settings',
-                controller.selectedIndex == 4),
-          ],
-          onTap: (index) => controller.changePage(index),
-        ),
-      ),
+      bottomNavigationBar:const CustomBottomNavbar()
     );
   }
 

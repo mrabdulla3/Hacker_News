@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hacker_news/constants/app_colors.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('About Us')),
+        appBar: AppBar(
+          leading: IconButton(onPressed: (){Get.back();}, icon:const Icon(Icons.arrow_back_ios_new_rounded) ),
+            backgroundColor: AppColors.appBarTheme,
+            centerTitle: true,
+            title: const Text('About Us')),
         body: SingleChildScrollView(
           child: Column(
             children: [

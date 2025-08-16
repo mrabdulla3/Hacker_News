@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
+import 'package:hacker_news/views/bot_screen.dart';
 import 'package:hacker_news/views/home.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -18,6 +18,25 @@ class HomeController extends GetxController {
   String selectedCategory = 'All';
   int selectedIndex = 2;
 
+  bool isLoading = true;
+  bool isLoad = true;
+  bool isLoad1 = true;
+  List<String> extractedTitles = [];
+  List<String> extractedSubtitles = [];
+  List<String> extractedDate = [];
+  List<String> extractedImage = [];
+
+  List<Map<String, String>> showAll = [];
+  List<Map<String, String>> showAI = [];
+  List<Map<String, String>> showCS = [];
+
+  @override
+  void onInit() {
+    super.onInit();
+    getWebsiteData();
+  }
+
+
   void changePage(int index) {
     selectedIndex = index;
     update();
@@ -27,7 +46,7 @@ class HomeController extends GetxController {
         Get.toNamed(Routes.SAVED);
         break;
       case 1:
-        // Ask AI logic here
+        Get.to(const AIBot());
         break;
       case 2:
         Get.toNamed(Routes.HOME);
@@ -40,13 +59,6 @@ class HomeController extends GetxController {
         break;
     }
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-    getWebsiteData();
-  }
-
 
   void selectCategory(String category) async {
     selectedCategory = category;
@@ -80,18 +92,6 @@ class HomeController extends GetxController {
     currentPage = index;
     update();
   }
-
-  bool isLoading = true;
-  bool isLoad = true;
-  bool isLoad1 = true;
-  List<String> extractedTitles = [];
-  List<String> extractedSubtitles = [];
-  List<String> extractedDate = [];
-  List<String> extractedImage = [];
-
-  List<Map<String, String>> showAll = [];
-  List<Map<String, String>> showAI = [];
-  List<Map<String, String>> showCS = [];
 
   Future<void> getWebsiteData() async {
     try {
@@ -143,6 +143,7 @@ class HomeController extends GetxController {
         });
 
         isLoad1 = false;
+        isLoad=false;
         update();
       } else {
         throw Exception('Failed Data Loading!');
@@ -187,8 +188,8 @@ class HomeController extends GetxController {
   List<String> extractedLink = [];
 
   Future<void> getWebsiteAIData() async {
-    EasyLoading.show(status: '');
-
+    isLoad=true;
+    update();
     final url =
         Uri.parse('https://news.mit.edu/topic/artificial-intelligence2');
 
@@ -223,9 +224,11 @@ class HomeController extends GetxController {
           extractedLink.add(link);
         }
       });
-
-      EasyLoading.dismiss();
+       isLoad=false;
+       update();
     } else {
+      isLoad=false;
+      update();
       throw Exception('Failed Data Loading!');
     }
   }
@@ -239,7 +242,8 @@ class HomeController extends GetxController {
   List<String> ExtractedCSLink = [];*/
 
   Future<bool> getWebsiteCSData() async {
-    EasyLoading.show(status: '');
+     isLoad=true;
+    update();
     final url = Uri.parse('https://news.mit.edu/topic/cyber-security');
 
     final response = await http.get(url);
@@ -273,9 +277,11 @@ class HomeController extends GetxController {
           extractedLink.add(link);
         }
       });
-
-      EasyLoading.dismiss();
+     isLoad=false;
+     update();
     } else {
+      isLoad=false;
+      update();
       throw Exception('Failed Data Loading!');
     }
     return true;

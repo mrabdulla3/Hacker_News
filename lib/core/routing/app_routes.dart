@@ -14,6 +14,8 @@ abstract class Routes {
   static const CONTACT = _Paths.CONTACT;
   static const DETAIL_PAGE = _Paths.DETAIL_PAGE;
   static const SAVED = _Paths.SAVED;
+  static const FEEDBACK = _Paths.FEEDBACK;
+  static const TERMS_AND_CONDITIONS = _Paths.TERMS_AND_CONDITIONS;
 }
 
 abstract class _Paths {
@@ -28,4 +30,6 @@ abstract class _Paths {
   static const CONTACT = '/contact_us';
   static const DETAIL_PAGE = '/detail-page';
   static const SAVED = '/saved-articles';
+  static const FEEDBACK = '/feedback';
+  static const TERMS_AND_CONDITIONS = '/terms-and-conditions';
 }

@@ -23,11 +23,10 @@ class SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               children: [
                 SizedBox(height: screenHeight * 0.1),
-
                 // Logo
                 Center(
                   child: Image.asset(
-                    'assets/hackerNews.jpg',
+                    'assets/hackerNews.png',
                     height: screenHeight * 0.10,
                     width: screenWidth * 0.3,
                   ),
