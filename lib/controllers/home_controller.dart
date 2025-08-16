@@ -14,6 +14,8 @@ class HomeController extends GetxController {
   bool showDSItem = false;
   bool showCSItem = false;
   double currentPage = 0;
+  bool isSearching=false;
+  TextEditingController searchController=TextEditingController();
 
   String selectedCategory = 'All';
   int selectedIndex = 2;
@@ -30,12 +32,14 @@ class HomeController extends GetxController {
   List<Map<String, String>> showAI = [];
   List<Map<String, String>> showCS = [];
 
+  List<Map<String, String>> searchedNews = [];
+     bool get isSearchingActive => isSearching && searchController.text.isNotEmpty;
+
   @override
   void onInit() {
     super.onInit();
     getWebsiteData();
   }
-
 
   void changePage(int index) {
     selectedIndex = index;
@@ -143,7 +147,7 @@ class HomeController extends GetxController {
         });
 
         isLoad1 = false;
-        isLoad=false;
+        isLoad = false;
         update();
       } else {
         throw Exception('Failed Data Loading!');
@@ -188,7 +192,7 @@ class HomeController extends GetxController {
   List<String> extractedLink = [];
 
   Future<void> getWebsiteAIData() async {
-    isLoad=true;
+    isLoad = true;
     update();
     final url =
         Uri.parse('https://news.mit.edu/topic/artificial-intelligence2');
@@ -224,10 +228,10 @@ class HomeController extends GetxController {
           extractedLink.add(link);
         }
       });
-       isLoad=false;
-       update();
+      isLoad = false;
+      update();
     } else {
-      isLoad=false;
+      isLoad = false;
       update();
       throw Exception('Failed Data Loading!');
     }
@@ -242,7 +246,7 @@ class HomeController extends GetxController {
   List<String> ExtractedCSLink = [];*/
 
   Future<bool> getWebsiteCSData() async {
-     isLoad=true;
+    isLoad = true;
     update();
     final url = Uri.parse('https://news.mit.edu/topic/cyber-security');
 
@@ -277,13 +281,37 @@ class HomeController extends GetxController {
           extractedLink.add(link);
         }
       });
-     isLoad=false;
-     update();
+      isLoad = false;
+      update();
     } else {
-      isLoad=false;
+      isLoad = false;
       update();
       throw Exception('Failed Data Loading!');
     }
     return true;
   }
+
+  void searchNews(String query) {
+    if (query.isEmpty) {
+      searchedNews = [];
+    } else {
+     
+
+      searchedNews = showAll
+          .where((item) =>
+              item['title']!.toLowerCase().contains(query.toLowerCase()) ||
+              item['subtitle']!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    print(searchedNews);
+    update();
+  }
+
+  void clearSearch() {
+    searchController.clear();
+    searchedNews = [];
+    isSearching = false;
+    update();
+  }
 }
+
