@@ -30,6 +30,7 @@ class SignupController extends GetxController {
 
   Future<void> register() async {
     isLoading = true;
+    update();
     try {
       UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -54,6 +55,7 @@ class SignupController extends GetxController {
       }
     } finally {
       isLoading = false;
+      update();
     }
   }
 }

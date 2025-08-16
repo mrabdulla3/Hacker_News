@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:hacker_news/controllers/contactus_controller.dart';
 import 'package:hacker_news/controllers/detail_page_controller.dart';
 import 'package:hacker_news/controllers/feedback_controller.dart';
+import 'package:hacker_news/controllers/forget_password_controller.dart';
 import 'package:hacker_news/controllers/home_controller.dart';
 import 'package:hacker_news/controllers/login_controller.dart';
 import 'package:hacker_news/controllers/onboarding_controller.dart';
@@ -13,6 +14,7 @@ import 'package:hacker_news/views/Onboarding.dart';
 import 'package:hacker_news/views/contactus_screen.dart';
 import 'package:hacker_news/views/detail_page.dart';
 import 'package:hacker_news/views/feedback_screen.dart';
+import 'package:hacker_news/views/forget_password.dart';
 import 'package:hacker_news/views/home.dart';
 import 'package:hacker_news/views/login_screen.dart';
 import 'package:hacker_news/views/profile_screen.dart';
@@ -111,6 +113,15 @@ class AppPages {
     GetPage(
       name: _Paths.TERMS_AND_CONDITIONS,
       page: () => const TermsAndConditionsScreen(),
+    ),
+
+    GetPage(
+      name: _Paths.FORGET_PASSWORD,
+      page: () => const ForgetPassword(),
+      binding: BindingsBuilder(
+        () => Get.lazyPut<ForgetPasswordController>(
+            () => ForgetPasswordController()),
+      ),
     ),
   ];
 }

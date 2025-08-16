@@ -13,12 +13,14 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+
   void passwodTogle(bool visible){
       passwordVisible=!visible;
      update();
   }
   Future<void> signin() async {
     isLoading = true;
+    update();
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: mailController.text.trim(),
@@ -34,6 +36,7 @@ class LoginController extends GetxController {
       }
     } finally {
       isLoading = false;
+      update();
     }
   }
 

@@ -16,6 +16,7 @@ abstract class Routes {
   static const SAVED = _Paths.SAVED;
   static const FEEDBACK = _Paths.FEEDBACK;
   static const TERMS_AND_CONDITIONS = _Paths.TERMS_AND_CONDITIONS;
+  static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
 }
 
 abstract class _Paths {
@@ -32,4 +33,5 @@ abstract class _Paths {
   static const SAVED = '/saved-articles';
   static const FEEDBACK = '/feedback';
   static const TERMS_AND_CONDITIONS = '/terms-and-conditions';
+  static const FORGET_PASSWORD = '/forget-password';
 }
