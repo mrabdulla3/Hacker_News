@@ -116,7 +116,21 @@ class DetailPageController extends GetxController {
   }
 
   Future<void> saveNews() async {
-    try {
+   try {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('saved-news')
+        .doc(user.uid)
+        .collection('articles')
+        .where('url', isEqualTo: link)
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      // Already saved → delete it
+      await snapshot.docs.first.reference.delete();
+      isSaved = false;
+    } else {
+      // Not saved → save it
       await FirebaseFirestore.instance
           .collection('saved-news')
           .doc(user.uid)
@@ -125,16 +139,18 @@ class DetailPageController extends GetxController {
         'title': exTitles[0],
         'subtitle': exSubTitles[0],
         'date': exDate[0],
-        'source':exSource[0],
+        'source': exSource[0],
         'image': 'https://news.mit.edu${exExtractedImage[0]}',
         'url': link,
         'savedAt': FieldValue.serverTimestamp(),
       });
       isSaved = true;
-      update();
-    } catch (e) {
-      print(e);
     }
+
+    update(); // refresh UI
+  } catch (e) {
+    print(e);
+  }
   }
 
   Future<void> checkIfSaved() async {

@@ -11,6 +11,7 @@ import 'package:hacker_news/controllers/saved_controller.dart';
 import 'package:hacker_news/controllers/settings_controller.dart';
 import 'package:hacker_news/controllers/signup_controller.dart';
 import 'package:hacker_news/views/Onboarding.dart';
+import 'package:hacker_news/views/about_us.dart';
 import 'package:hacker_news/views/contactus_screen.dart';
 import 'package:hacker_news/views/detail_page.dart';
 import 'package:hacker_news/views/feedback_screen.dart';
@@ -51,7 +52,7 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const Home(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<HomeController>(() => HomeController()),
+        () => Get.lazyPut<HomeController>(() => HomeController(), fenix: true),
       ),
     ),
 
@@ -59,14 +60,16 @@ class AppPages {
       name: _Paths.SETTINGS,
       page: () => const SettingsScreen(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<SettingsController>(() => SettingsController()),
+        () => Get.lazyPut<SettingsController>(() => SettingsController(),
+            fenix: true),
       ),
     ),
     GetPage(
       name: _Paths.PROFILE,
       page: () => const ProfileScreen(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<ProfileController>(() => ProfileController()),
+        () => Get.lazyPut<ProfileController>(() => ProfileController(),
+            fenix: true),
       ),
     ),
     GetPage(
@@ -92,7 +95,8 @@ class AppPages {
       name: _Paths.SAVED,
       page: () => const SavedScreen(),
       binding: BindingsBuilder(
-        () => Get.lazyPut<SavedController>(() => SavedController()),
+        () =>
+            Get.lazyPut<SavedController>(() => SavedController(), fenix: true),
       ),
     ),
 
@@ -122,6 +126,11 @@ class AppPages {
         () => Get.lazyPut<ForgetPasswordController>(
             () => ForgetPasswordController()),
       ),
+    ),
+
+    GetPage(
+      name: _Paths.ABOUT_US,
+      page: () => const AboutUs(),
     ),
   ];
 }

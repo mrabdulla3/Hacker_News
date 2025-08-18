@@ -5,8 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hacker_news/constants/app_colors.dart';
 import 'package:hacker_news/controllers/sidebar_controller.dart';
 import 'package:hacker_news/core/routing/app_pages.dart';
-import 'package:hacker_news/views/about_us.dart';
-import 'package:hacker_news/views/feedback_screen.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -14,18 +12,18 @@ class Sidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height / 2.1;
     return Drawer(
-      child: GetBuilder<SidebarController>(
-        init: SidebarController(),
-        builder: (controller) => ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            SizedBox(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          GetBuilder<SidebarController>(
+            init: SidebarController(),
+            builder: (controller) => SizedBox(
               height: screenHeight * 0.8,
               child: controller.isLoding
-                  ?const SpinKitCircle(
-                              size: 50,
-                              color: AppColors.secondryColor,
-                            )
+                  ? const SpinKitCircle(
+                      size: 50,
+                      color: AppColors.secondryColor,
+                    )
                   : DrawerHeader(
                       child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -51,40 +49,38 @@ class Sidebar extends StatelessWidget {
                       ],
                     )),
             ),
-            ListTile(
-                leading: const Icon(Icons.feedback_outlined),
-                title: const Text('Feedback'),
-                onTap: () {
-                  Get.to(() => const FeedbackScreen());
-                }),
-            ListTile(
+          ),
+          ListTile(
+              leading: const Icon(Icons.feedback_outlined),
+              title: const Text('Feedback'),
+              onTap: () {
+                Get.toNamed(Routes.FEEDBACK);
+              }),
+          ListTile(
               leading: const Icon(Icons.account_box_outlined),
               title: const Text('About Us'),
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AboutUs(),
-                  )),
-            ),
-            ListTile(
-                leading: const Icon(Icons.contact_page_outlined),
-                title: const Text('Contact Us'),
-                onTap: () {
-                  Get.toNamed(Routes.CONTACT);
-                }),
-            ListTile(
-              leading: const Icon(Icons.bookmark_border),
-              title: const Text('Saved Articles'),
+              onTap: () => Get.toNamed(Routes.ABOUT_US)),
+          ListTile(
+              leading: const Icon(Icons.contact_page_outlined),
+              title: const Text('Contact Us'),
               onTap: () {
-                Get.toNamed(Routes.SAVED);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () => {Get.toNamed(Routes.SETTINGS)},
-            ),
-            ListTile(
+                Get.toNamed(Routes.CONTACT);
+              }),
+          ListTile(
+            leading: const Icon(Icons.bookmark_border),
+            title: const Text('Saved Articles'),
+            onTap: () {
+              Get.toNamed(Routes.SAVED);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () => {Get.toNamed(Routes.SETTINGS)},
+          ),
+          GetBuilder<SidebarController>(
+            init: SidebarController(),
+            builder: (controller) => ListTile(
               leading: const Icon(
                 Icons.logout,
                 color: Colors.red,
@@ -95,8 +91,8 @@ class Sidebar extends StatelessWidget {
               ),
               onTap: () => {controller.logOut()},
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

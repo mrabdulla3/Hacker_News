@@ -107,7 +107,7 @@ class SavedScreen extends StatelessWidget {
                               ),
                             ),
                             IconButton(
-                              icon: const Icon(Icons.delete_outline,
+                              icon: const Icon(Icons.delete_outline_rounded,
                                   color: Colors.red),
                               onPressed: () {
                                 // Implement delete from saved list
