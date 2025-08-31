@@ -31,8 +31,8 @@ Install the app and explore MIT News articles.
 
 Screenshot: 
 
-
-![IMG_20240711_103754](https://github.com/mrabdulla3/Hacker_News/assets/129673628/a44053d7-910e-45ef-87d7-6e3f78413374)
+![horizontal_collage (1)](https://github.com/user-attachments/assets/f2d45241-8206-4858-ae1a-54291b9d9f2d)
+![horizontal_collage_set2](https://github.com/user-attachments/assets/bcac5cb9-4972-4c46-b31a-db1304b4f290)
 
 
 
